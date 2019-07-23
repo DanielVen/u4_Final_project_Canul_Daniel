@@ -70,7 +70,9 @@ Variables
     
   return vel_actual2;
  }
+ 
 int main(int argc, char **argv) {
+
     wb_robot_init();
 
     WbDeviceTag link1 = wb_robot_get_device("DC_MOTOR1");
@@ -89,23 +91,29 @@ int main(int argc, char **argv) {
   while (wb_robot_step(TIME_STEP) != -1) {
 
    Act_position = wb_position_sensor_get_value(Position_sen1);
+   
     if(velocity1 > 0){
        ki = 5;
     }
     ////////////////////////////////////////////////////
    velocity1 = PIcontroller(Ref_position, Act_position);
+   
     if(velocity1 > wb_motor_get_max_velocity(link1)) {
       velocity1 = wb_motor_get_max_velocity(link1);
     }
+    
 // For velocity2
+
     if(velocity2 > 0) {
        ki2 = 6;
     }
     
    velocity2 = PIcontroller2(Ref_position2, Act_position2);
+   
     if(velocity2 > wb_motor_get_max_velocity(link2)) {
       velocity2 = wb_motor_get_max_velocity(link2);
     }
+    
     ////////////////////////////////////////////////////
     Act_position2 = wb_position_sensor_get_value(Position_sen2);
     printf("position %lf\t position 2 %lf\n", Act_position, Act_position2);
