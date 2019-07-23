@@ -1,0 +1,228 @@
+#VRML_SIM R2019a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.435928363097108 0.8716209193867931 0.22415047431312296 5.175580002020153
+  position -1.1896164543013696 1.0636313238716537 0.9602081594702342
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+}
+Robot {
+  children [
+    DEF PUMA Solid {
+      translation 0 0.01 0
+      children [
+        DEF BASE Group {
+          children [
+            DEF B_BASE Shape {
+              appearance PBRAppearance {
+                baseColor 0.9607843137254902 0.4745098039215686 0
+              }
+              geometry Box {
+                size 0.15 0.02 0.15
+              }
+            }
+            DEF B_LINK1 Transform {
+              translation 0 0.135 0
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.9137254901960784 0.7254901960784313 0.43137254901960786
+                  }
+                  geometry Box {
+                    size 0.1 0.25 0.1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+      boundingObject USE BASE
+      physics Physics {
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0.32 0
+        staticFriction 0.01
+      }
+      device [
+        PositionSensor {
+          name "ENCODER1"
+          resolution 0.314
+        }
+        RotationalMotor {
+          name "DC_MOTOR1"
+          controlPID 0 0 0
+          maxVelocity 4.92
+          maxTorque 4.2
+        }
+      ]
+      endPoint Solid {
+        translation 0.024999999999999998 0.32 0
+        rotation 0 0 -1 1.5707996938995745
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.3333333333333333 0.3411764705882353 0.3254901960784314
+            }
+            geometry DEF BOX Box {
+              size 0.1 0.17 0.1
+            }
+          }
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.8
+              axis 0 1 0
+              anchor 0 0.125 0
+            }
+            device [
+              PositionSensor {
+                name "ENCODER2"
+                resolution 0.314
+              }
+              RotationalMotor {
+                name "DC_MOTOR2"
+                controlPID 0 0 0
+                maxVelocity 4.92
+                maxTorque 4.2
+              }
+            ]
+            endPoint Solid {
+              translation 0.03586780454497618 0.135 0.034835335467358314
+              rotation 0 1 0 0.7999999999999999
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.12549019607843137 0.2901960784313726 0.5294117647058824
+                  }
+                  geometry DEF LINK2 Box {
+                    size 0.1 0.1 0.25
+                  }
+                }
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0 1 0
+                    anchor 0 0 0.125
+                  }
+                  device [
+                    PositionSensor {
+                      name "ENCODER3"
+                      resolution 1
+                    }
+                    RotationalMotor {
+                      name "SERVO_MOTOR1"
+                      minPosition -2.09
+                      maxPosition 2.72
+                      maxTorque 1.47
+                    }
+                  ]
+                  endPoint Solid {
+                    translation 0 -0.1 0.18
+                    children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.3058823529411765 0.6039215686274509 0.023529411764705882
+                        }
+                        geometry DEF LINK3 Box {
+                          size 0.1 0.1 0.15
+                        }
+                      }
+                      HingeJoint {
+                        jointParameters HingeJointParameters {
+                          axis 0 1 0
+                          anchor 0 0 0.075
+                        }
+                        device [
+                          PositionSensor {
+                            name "ENCODER4"
+                            resolution 1
+                          }
+                          RotationalMotor {
+                            name "SERVO_MOTOR2"
+                            maxTorque 0.21
+                          }
+                        ]
+                        endPoint Solid {
+                          translation 0 0 0.1
+                          children [
+                            DEF GRIPPERR Group {
+                              children [
+                                DEF G_GRIP Shape {
+                                  appearance DEF A_GRIPPER PBRAppearance {
+                                    baseColor 0.8 0 0
+                                  }
+                                  geometry Box {
+                                    size 0.01 0.01 0.05
+                                  }
+                                }
+                                DEF G_GRIP2 Transform {
+                                  translation 0 0 0.03
+                                  rotation 1 0 0 1.5708003061004252
+                                  children [
+                                    Shape {
+                                      appearance USE A_GRIPPER
+                                      geometry Box {
+                                        size 0.01 0.01 0.05
+                                      }
+                                    }
+                                  ]
+                                }
+                                DEF G_GRIP3 Transform {
+                                  translation 0 0.03 0.05
+                                  children [
+                                    Shape {
+                                      appearance USE A_GRIPPER
+                                      geometry Box {
+                                        size 0.01 0.01 0.05
+                                      }
+                                    }
+                                  ]
+                                }
+                                DEF G_GRIP4 Transform {
+                                  translation 0 -0.03 0.05
+                                  children [
+                                    Shape {
+                                      appearance USE A_GRIPPER
+                                      geometry Box {
+                                        size 0.01 0.01 0.05
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                          boundingObject USE GRIPPERR
+                          physics Physics {
+                          }
+                        }
+                      }
+                    ]
+                    boundingObject USE LINK3
+                    physics Physics {
+                    }
+                  }
+                }
+              ]
+              boundingObject USE LINK2
+              physics Physics {
+              }
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE BOX
+        physics Physics {
+        }
+      }
+    }
+  ]
+  controller "PUMA"
+}
